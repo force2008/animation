@@ -41,7 +41,9 @@ var tween = require('./tween');
 		this.change = Math.abs(this.to-this.from);
 		this.onupdate = options.onupdate||f;
 		this.onstop = options.onstop||f;
+		this.interval = options.interval||10;
 		this.duration = options.duration||1000;
+		this.step = options.step||10;
 		this.animationMode = options.animationMode||'Quad';
 		this.timeFunction = options.timeFunction||'easeOut';
 		
@@ -54,17 +56,19 @@ var tween = require('./tween');
 			func = this.func,
 			duration = this.duration,
 			onupdate = this.onupdate,
+			interval = this.interval,
+			step = this.setp,
 			time = 0;
 			
 		this.timer = setInterval(function(){
 			var value = func(time,from,change,duration);
 			onupdate({percent:time/duration,value:value});
-			time += 10;
+			time += step;
 			if(time>=duration){
 				this.onstop({percent:time/duration,value:value});
 				clearInterval(this.timer)
 			}
-		}.bind(this),10)
+		}.bind(this),interval)
 	}
 	Animation.prototype.stop = function(){
 		clearInterval(this.timer);

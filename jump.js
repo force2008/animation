@@ -1,13 +1,14 @@
 requirejs.config({
-    baseUrl: 'dist/'
+    baseUrl: 'https://rawgit.com/force2008/animation/master/dist/'
 });
 requirejs(['animation.min1'],function(Animation){
-	var end = document.getElementById('end'),
-		endX = end.offsetLeft;
+	var end = document.getElementById('end');
+		
 
 	document.body.addEventListener('click',function(event){
 		
-	var startX = event.offsetX,
+	var endX = end.offsetLeft,
+		startX = event.offsetX,
 		startY = event.offsetY,
 		start = document.createElement('div');
 
@@ -17,7 +18,7 @@ requirejs(['animation.min1'],function(Animation){
 	document.body.appendChild(start);
 	var xLength = Math.floor((endX+startX))/2 - startX;
 	var y = startY - document.body.scrollTop;
-	var y2 =  end.offsetTop - document.body.scrollTop;
+	var y2 =  end.offsetTop //+ document.body.scrollTop;
 	console.log(startX,endX,xLength);
 	var nextHalf = new Animation({
 		from:0,
@@ -27,6 +28,9 @@ requirejs(['animation.min1'],function(Animation){
 			start.style.top = (document.body.scrollTop+y2*event.value)+'px';
 			start.style.left = (Math.floor((endX+startX))/2+Math.floor(event.percent*xLength))+'px';
 		},
+		onstop:function(){
+			//start.style.position ='fixed'
+		},
 		animationMode:'Quad',
 		timeFunction:'easeIn'
 	})
@@ -35,7 +39,7 @@ requirejs(['animation.min1'],function(Animation){
 		to:1,
 		onupdate:function(event){
 			start.style.left = (startX+Math.floor(event.percent*xLength))+'px';
-			start.style.top = (y-y*event.value)+'px';
+			start.style.top = (y-y*event.value+document.body.scrollTop)+'px';
 		},
 		onstop:function(){
 			nextHalf.start();

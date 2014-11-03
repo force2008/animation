@@ -15,7 +15,7 @@ gulp.task('minify', function () {
 	return gulp.src('js/animation.js')
 		.pipe(webpack({
 		      output: {
-		        filename: 'animation.min1.js',
+		        filename: 'js/animation.min1.js',
 		        libraryTarget: "umd"
 		      }
 		    }
