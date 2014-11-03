@@ -21,7 +21,6 @@ gulp.task('minify', function () {
 		    }
 		    ))
         .pipe(gulp.dest('dist'))
-        .pipe(uglify())
         .pipe(gulp.dest('dist'));
 });
 
