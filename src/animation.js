@@ -57,9 +57,11 @@ var tween = require('./tween');
 			duration = this.duration,
 			onupdate = this.onupdate,
 			interval = this.interval,
-			step = this.setp,
+			step = this.step,
 			time = 0;
-			
+		if(this.timer){
+			clearInterval(this.timer);
+		}
 		this.timer = setInterval(function(){
 			var value = func(time,from,change,duration);
 			onupdate({percent:time/duration,value:value});
