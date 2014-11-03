@@ -12,15 +12,14 @@ var webpack = require('gulp-webpack');
 // });
 
 gulp.task('minify', function () {
-	return gulp.src('js/animation.js')
+	return gulp.src('src/animation.js')
 		.pipe(webpack({
 		      output: {
-		        filename: 'js/animation.min1.js',
+		        filename: './animation.min1.js',
 		        libraryTarget: "umd"
 		      }
 		    }
 		    ))
-        .pipe(gulp.dest('dist'))
         .pipe(gulp.dest('dist'));
 });
 
