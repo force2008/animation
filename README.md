@@ -26,3 +26,17 @@
 			dom
 		</div>
 	</div>
+	
+	<html>
+		<head>
+			<meta charset="utf-8"/>
+			<title>DOM实例</title>
+		</head>
+		<body>
+			<!--文档开始-->
+			<fieldset class="crtnd">
+				<legend>图片操作：</legend>
+				<input type="button" value="增加图片" />
+			</fieldset>
+		</body>
+	</html>
