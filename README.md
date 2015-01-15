@@ -40,3 +40,11 @@
 			</fieldset>
 		</body>
 	</html>
+```
+```javascript
+
+	function $(id){
+		return document.getElementById(id);
+	}
+```	
+	
