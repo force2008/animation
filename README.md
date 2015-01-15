@@ -31,6 +31,12 @@
 	htmlString += '</ul>';
 	elm.innerHTML = htmlString;
 	
+	var tpl ='<div class="item"><img class=" j-flag"/><div class="j-flag"></div></div>';
+	var box = document.createElement('div');
+	box.innerHTML = tp;
+	var list = box.getElementsByClassName('j-flag');
+	list[0].src= '/imgurl';
+	list[1].innerText ='my name is netease'
 	for(var i=0,l=collection.length;i<l;i++){
 		collection[i];
 	}
