@@ -4,12 +4,58 @@
 	function $(selector){
 		return document.querySelectorAll(selector)
 	}
+	
+	
+	if(typeof HTMLElement!="undefined" && !HTMLElement.prototype.insertAdjacentElement)
+	{
+		 HTMLElement.prototype.insertAdjacentElement = function(where,parsedNode)
+		 {
+			switch (where)
+			{
+				case 'beforeBegin':
+					this.parentNode.insertBefore(parsedNode,this)
+					break;
+				case 'afterBegin':
+					this.insertBefore(parsedNode,this.firstChild);
+					break;
+				case 'beforeEnd':
+					this.appendChild(parsedNode);
+					break;
+				case 'afterEnd':
+					if (this.nextSibling) this.parentNode.insertBefore(parsedNode,this.nextSibling);
+						else this.parentNode.appendChild(parsedNode);
+					break;
+			 }
+		 }
+	}
+	var oldChild = element.removeChild(child);
 	var elm = document.getElementById(IDString);
+	var oldChild = element.removeChild(child);
+	function remove(elm){
+		elm.parentNode.removeChild(elm);
+	}
+	
+	elm.innerHTML = '<img src="a.png"/>';
+	elm.innerHTML = '';
+	elm.innerHTML += '';
 	var collection = elm.getElementsByClassName(classes);
 	var collection = elm.getElementsByTagName(tag);
 	var elm = document.getElementById(IDString);
 	var element = document.createElement(tagName);
-
+	HTMLElement.prototype.__defineGetter__("innerText", function () { 
+	return this.textContent; 
+	}) 
+	HTMLElement.prototype.__defineSetter__("innerText", function(s) { 
+		this.textContent = s; 
+	}) 
+	
+	elm.innerHTML = '<img src="a.png"/>'; 
+	elm1.textContent = '<img src="a.png"/>';
+	
+	var insertedElement = parentElement.insertBefore(newElement, referenceElement);
+	
+	var oElement = elm.insertAdjacentElement(sWhere, oElement);
+	
 	var collection = elm.getElementsByClassName('j-flag');
 	var collection = elm.getElementsByClassName('j-flag z-flag');
 	
@@ -100,6 +146,13 @@
 	</html>
 
 
+	<!-- beforebegin -->
+	<p>
+	<!-- afterbegin -->
+	foo
+	<!-- beforeend -->
+	</p>
+	<!-- afterend -->
 
 	<div id="p">
 		<div id="hello">
