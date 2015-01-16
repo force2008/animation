@@ -145,7 +145,20 @@
 	</body>
 	</html>
 
-
+	<html>
+	<head>
+	<mata charset="utf-8"/>
+	<link href="/css/style.css"/>
+	</head>
+	<body>
+		<p>
+		hello,<span>mooc</span> users
+		</p>
+		<div>
+			<img src="/images/user.jpg"/>
+		</div>
+	</body>
+	</html>
 	<!-- beforebegin -->
 	<p>
 	<!-- afterbegin -->
