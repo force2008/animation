@@ -38,6 +38,7 @@
 	elm.innerHTML = '<img src="a.png"/>';
 	elm.innerHTML = '';
 	elm.innerHTML += '';
+	p.innerHTML = '<span> this's DOM </span>';
 	var collection = elm.getElementsByClassName(classes);
 	var collection = elm.getElementsByTagName(tag);
 	var elm = document.getElementById(IDString);
