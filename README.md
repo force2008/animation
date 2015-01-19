@@ -5,7 +5,79 @@
 		return document.querySelectorAll(selector)
 	}
 	
+	var type = document.getElementById('type');
+	type.className= 'type';
 	
+	elm.className = classes;
+	function addClassName(elm,newClassName){
+		var className = ' '+elm.className+' ';
+		var classNameWithSpace = ' '+newClassName+' ';
+		if(className.indexOf(classNameWithSpace)==-1){
+			elm.className +=' '+newClassName
+		}
+	}
+	function hasClassName(elm,newClassName){
+		var className = ' '+elm.className+' ';
+		var classNameWithSpace = ' '+newClassName+' ';
+		return className.indexOf(classNameWithSpace)==-1?false:true;
+	}
+	function removeClassName(elm,newClassName){
+		var className = ' '+elm.className+' ';
+		var classNameWithSpace = ' '+newClassName+' ';
+		className.replace(classNameWithSpace,'');
+		elm.className = className;
+	}
+	elm.className = 'md-top';
+	
+	var attributes = elm.attributes;
+	
+	var type = doucment.getElementById('type');
+	type.getAttribute('class');
+	type.setAttribute('class','classes');
+	type.removeAttribute('class');
+	
+	var list = elm.classList;
+	
+	var type = document.getElementById('type');
+	type.classList.add('type');
+	type.classList.remove('type');
+	type.classList.contains('type');
+	type.classList.toggle('type');
+	
+	if(type.classList.contains('type')){
+	  type.classList.add('type');
+	} else {
+	  type.classList.remove('type');
+	}
+	
+	elm.style.property = 'cssproperty';
+	
+	
+	var type = document.getElementById('type');
+	type.style.top ='50px';
+	type.style.width ='200px';
+	type.style.backgroundColor ='red';
+	
+	<script>
+	    var anim = document.getElementById('anim'); 
+		  var play = document.getElementById('play'),timer,length=100;
+      play.onclick = function(){
+        if(timer){
+          clearInterval(timer);
+        }
+        var stepped = 0; 
+        timer = setInterval(function(){
+                  var width = parseInt(anim.style.width)||100;
+                  stepped += 10;
+                  if(stepped>100){
+                    clearInterval(timer);
+                  } else{
+                    anim.style.width = width+ 10 +'px';
+                  }
+                },20);
+      }
+      </script>
+	  
 	if(typeof HTMLElement!="undefined" && !HTMLElement.prototype.insertAdjacentElement)
 	{
 		 HTMLElement.prototype.insertAdjacentElement = function(where,parsedNode)
@@ -28,13 +100,27 @@
 			 }
 		 }
 	}
+	var type = document.getElementById('type');
+	var  p =  document.getElementById('p');
+	var netease = document.createElement('span');
+	netease.innerText = 'netease';
+	p.replaceChild(netease,type);
 	var oldChild = element.removeChild(child);
 	var elm = document.getElementById(IDString);
 	var oldChild = element.removeChild(child);
 	function remove(elm){
 		elm.parentNode.removeChild(elm);
 	}
-	
+	var dom = $('dom'),count =3;
+        var liLiveList = dom.getElementsByTagName('li');
+        var liNotLiveList = dom.querySelectorAll('li');
+        $('add').onclick = function(){
+            var li = document.createElement('li');
+            li.innerHTML = ++count;
+            dom.appendChild(li);
+            log('liLiveList length :'+liLiveList.length);
+            log('not LiveList length :'+liNotLiveList.length)
+        }
 	elm.innerHTML = '<img src="a.png"/>';
 	elm.innerHTML = '';
 	elm.innerHTML += '';
@@ -134,6 +220,8 @@
 		log('liLiveList length :'+liLiveList.length);
 		log('not LiveList length :'+liNotLiveList.length)
 	}
+	
+	
 ```
  
  ```html
@@ -160,6 +248,11 @@
 		</div>
 	</body>
 	</html>
+	<span style="top:50px;width:200px;background-color:red;">mooc</span>
+	<div id="anim" style="width:100px;background:red">&nbsp;</div> 
+    	<input type="button" value="开始动画" id="play"/>
+    
+    
 	<!-- beforebegin -->
 	<p>
 	<!-- afterbegin -->
@@ -190,6 +283,17 @@
 			</fieldset>
 		</body>
 	</html>
+	
+	<div id="p">
+		<ul id="dom" >
+			<li class="j-flag">1</li>
+			<li >2</li>
+			<li class="j-flag">3</li>
+		</ul>
+		<input value="添加节点" type="button" id="add"/>
+	</div>
+	
+	<div class="classes"><div>
 ```
 ```javascript
 
