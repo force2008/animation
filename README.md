@@ -4,7 +4,56 @@
 	function $(selector){
 		return document.querySelectorAll(selector)
 	}
+	function addCSS(cssText){
+	    var style = document.createElement('style'),  //创建一个style元素
+	        head = document.head || document.getElementsByTagName('head')[0]; //获取head元素
+	    style.type = 'text/css'; //这里必须显示设置style元素的type属性为text/css，否则在ie中不起作用
+	    if(style.styleSheet){ //IE
+	        style.styleSheet.cssText = cssText;
+	    }else{ //w3c
+	        var textNode = document.createTextNode(cssText);
+	        style.appendChild(textNode);
+	    }
+	    head.appendChild(style); //把创建的style元素插入到head中    
+	}
 	
+	var sheets = document.styleSheets;
+	var ruleList = sheets[0];
+	for(var i=0,l=ruleList.length;i<l;i++){
+		ruleList[i].
+	}
+	
+	var addCSSRule = function(sheet, selector, rules){
+	    //Backward searching of the selector matching cssRules
+	    var index=sheet.cssRules.length-1;
+	    for(var i=index; i>0; i--){
+	      var current_style = sheet.cssRules[i];
+	      if(current_style.selectorText === selector){
+	        //Append the new rules to the current content of the cssRule;
+	        rules=current_style.style.cssText + rules;
+	        sheet.deleteRule(i);
+	        index=i;
+	      }
+	    }
+	    if(sheet.insertRule){
+	      sheet.insertRule(selector + "{" + rules + "}", index);
+	    }
+	    else{
+	      sheet.addRule(selector, rules, index);
+	    }
+	    return sheet.cssRules[index].cssText;
+	  }
+	  
+	    for(var i=index; i>0; i--){
+	      var current_style = sheet.cssRules[i];
+	      if(current_style.selectorText === selector){
+	        //Append the new rules to the current content of the cssRule;
+	        rules=current_style.style.cssText + rules;
+	        sheet.deleteRule(i);
+	        index=i;
+	      }
+	    }
+	    
 	var type = document.getElementById('type');
 	type.className= 'type';
 	
