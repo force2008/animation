@@ -18,11 +18,31 @@
 	}
 	
 	var sheets = document.styleSheets;
-	var ruleList = sheets[0];
+	var ruleList = sheets[0].cssRules;
 	for(var i=0,l=ruleList.length;i<l;i++){
-		ruleList[i].
+		console.log(ruleList[i].selectorText,ruleList[i].cssText);
 	}
+	var css = '.p{background-color:red}';
+	sheets[0].insertRule(css,1);
 	
+	function delCssRule(selector,styleSheet,index){
+	        var sheets = styleSheet instanceof Array ? styleSheet : [styleSheet];
+	        selector = selector.toUpperCase();
+	        for(var i = 0,j = sheets.length; i < j;i++){
+	            var rules = sheets[i]['cssRules'] || sheets[i]['rules'];   //ie为 rules
+	            if(index >=0 && index < rules.length){
+	                sheets[i].deleteRule ? sheets[i].deleteRule(index) : sheets[i].removeRule(index);
+	            }else if(selector){
+	               for(var m = 0,n = rules.length;m < n;m++){
+	                    if(rules[m]['selectorText'].toUpperCase() == selector){
+	                       sheets[i].deleteRule ? sheets[i].deleteRule(m) : sheets[i].removeRule(m); //可能存在多个一样的selector  全部删除
+	                    }
+	                }
+	            }else{
+	                return false;
+	            }
+	        }
+	    };
 	var addCSSRule = function(sheet, selector, rules){
 	    //Backward searching of the selector matching cssRules
 	    var index=sheet.cssRules.length-1;
@@ -53,7 +73,45 @@
 	        index=i;
 	      }
 	    }
-	    
+	var slt = $('slt');
+	var option = new Option('全部','0');//new Option(text,value,defaultSelected,selected)
+	slt.options.add(option);
+	slt.options.remove(index);
+	slt.options.length = 0;
+	slt.selectedIndex = 1;
+	slt.value;
+	slt.options[slt.selectedIndex].text;
+	slt.options[slt.selectedIndex].value;
+	
+	var form = document.getElementById('update_form'); 
+	for(var i=0,l=form.elements.length;i<l;i++){ 
+	  console.log(i+':'+form.elements[i].name); 
+	  //do some validate logic
+	  //can insert tip element next to form.elements[i]
+	   switch(form.elements[i].tagName){
+	     case 'INPUT':
+	        valiateInput(form.elements[i])
+	     	break;
+	     case 'SELECT':
+	     	validateSelect(form.elemens[i];
+	     	break;
+	     case 'TEXTAREA':
+	     	validateTextarea(form.elemens[i];
+	     	break;
+	   }
+	} 
+	var list = [
+        {cover:'http://p4.music.126.net/UqxHc5LgqWruxrkwKU8OOA==/7842816441048728.jpg?param=140y140',playCount:123,name:'节奏歌单'},
+        {cover:'http://p4.music.126.net/UqxHc5LgqWruxrkwKU8OOA==/7842816441048728.jpg?param=140y140',playCount:123,name:'节奏歌单'},
+        {cover:'http://p4.music.126.net/UqxHc5LgqWruxrkwKU8OOA==/7842816441048728.jpg?param=140y140',playCount:123,name:'节奏歌单'},
+        {cover:'http://p4.music.126.net/UqxHc5LgqWruxrkwKU8OOA==/7842816441048728.jpg?param=140y140',playCount:123,name:'节奏歌单'},
+        {cover:'http://p4.music.126.net/UqxHc5LgqWruxrkwKU8OOA==/7842816441048728.jpg?param=140y140',playCount:123,name:'节奏歌单'},
+        {cover:'http://p4.music.126.net/UqxHc5LgqWruxrkwKU8OOA==/7842816441048728.jpg?param=140y140',playCount:123,name:'节奏歌单'}
+      ];
+	function onListLoaded(list){
+	
+	}
+	
 	var type = document.getElementById('type');
 	type.className= 'type';
 	
@@ -149,6 +207,56 @@
 			 }
 		 }
 	}
+	var tpl = '<div class="cover">\
+            <img class="j-flag"/> <span class="del j-flag"></span>\
+            <div class="playinfo f-cb"><span class="playcount">&nbsp;</span><span class="j-flag">123232</span><span class="play">&nbsp;</span></div>\
+          </div>\
+          <a class="name j-flag"></a>';
+	function onListLoaded(songList){
+        var box = document.getElementById('listbox');
+        box.innerHTML = '';
+        for(var i=0,l=songList.length;i<l;i++){
+          var LI = document.createElement('li');
+          LI.innerHTML = tpl;
+          LI.className = 'item';
+          var nodes = LI.getElementsByClassName('j-flag');
+          nodes[0].src = songList[i].cover;
+          nodes[1].onclick = (function(item){
+            return function(){
+              deleteItem(item.id);
+            }
+          })(songList[i]);
+          nodes[2].innerText = songList[i].playCount;
+          nodes[3].innerText = songList[i].name;
+          box.appendChild(LI);
+        }
+      }
+      onListLoaded(list);
+      
+      Array.prototype.indexOf = function(callback){
+        if(typeof callback=='function'){
+          var list = this;
+          for(var i=0,l=list.length;i<l;i++){
+            if(callback(list[i])){
+              return i;
+            }
+          }
+          return -1
+        }
+      }
+      
+      function deleteItem(id){
+        var index = list.indexOf(function(item){
+          if(item.id==id){
+            return true;
+          }
+        });
+        if(index!=-1){
+          list.splice(index,1);
+          onListLoaded(list);
+        }
+      }
+      
 	var type = document.getElementById('type');
 	var  p =  document.getElementById('p');
 	var netease = document.createElement('span');
@@ -332,7 +440,13 @@
 			</fieldset>
 		</body>
 	</html>
-	
+	<li class="item">
+	<div class="cover">
+            <img src="http://p4.music.126.net/UqxHc5LgqWruxrkwKU8OOA==/7842816441048728.jpg?param=140y140" class="j-flag"/> <span class="del j-flag"></span>
+            <div class="playinfo f-cb"><span class="playcount">&nbsp;</span><span class="j-flag">123232</span><span class="play">&nbsp;</span></div>
+          </div>
+          <a class="name j-flag">[私藏] 稀有极品节奏 Vol.31</a>
+        </li>
 	<div id="p">
 		<ul id="dom" >
 			<li class="j-flag">1</li>
@@ -341,6 +455,8 @@
 		</ul>
 		<input value="添加节点" type="button" id="add"/>
 	</div>
+	
+	<select id="slt"> <option>1</option><option>2</option></select>
 	
 	<div class="classes"><div>
 ```
