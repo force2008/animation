@@ -117,23 +117,39 @@
 	
 	elm.className = classes;
 	function addClassName(elm,newClassName){
-		var className = ' '+elm.className+' ';
-		var classNameWithSpace = ' '+newClassName+' ';
-		if(className.indexOf(classNameWithSpace)==-1){
-			elm.className +=' '+newClassName
+		if(elm.classList){
+			elm.classList.add(newClassName);
+		} else{
+			var className = ' '+elm.className+' ';
+			var classNameWithSpace = ' '+newClassName+' ';
+			if(className.indexOf(classNameWithSpace)==-1){
+				elm.className +=' '+newClassName;
+			}
 		}
 	}
+	
+	addClassName(subNav,'show');
 	function hasClassName(elm,newClassName){
-		var className = ' '+elm.className+' ';
-		var classNameWithSpace = ' '+newClassName+' ';
-		return className.indexOf(classNameWithSpace)==-1?false:true;
+		if(elm.classList){
+			return elm.classList.contains(newClassName);
+		else{
+			var className = ' '+elm.className+' ';
+			var classNameWithSpace = ' '+newClassName+' ';
+			return className.indexOf(classNameWithSpace)==-1?false:true;
+		}
 	}
+	hasClassName(subNav,'show');
 	function removeClassName(elm,newClassName){
-		var className = ' '+elm.className+' ';
-		var classNameWithSpace = ' '+newClassName+' ';
-		className.replace(classNameWithSpace,'');
-		elm.className = className;
+		if(elm.classList){
+			return elm.classList.remove(newClassName);
+		else{
+			var className = ' '+elm.className+' ';
+			var classNameWithSpace = ' '+newClassName+' ';
+			className.replace(classNameWithSpace,'');
+			elm.className = className;
+		}
 	}
+	removeClassName(subNav,'show');
 	elm.className = 'md-top';
 	
 	var attributes = elm.attributes;
@@ -160,11 +176,18 @@
 	elm.style.property = 'cssproperty';
 	
 	
-	var type = document.getElementById('type');
-	type.style.top ='50px';
-	type.style.width ='200px';
-	type.style.backgroundColor ='red';
+	var box = document.getElementById('box');
+	box.style.top ='50px';
+	box.style.width ='200px';
+	box.style.position ='absolute';
+	box.style.backgroundColor ='red';
 	
+	var type = document.getElementById('type'); 
+	type.classList.add('type');
+	type.classList.remove('type'); 
+	type.classList.contains('type'); 
+	type.classList.toggle('type'); 
+
 	<script>
 	    var anim = document.getElementById('anim'); 
 		  var play = document.getElementById('play'),timer,length=100;
@@ -426,7 +449,21 @@
 			dom
 		</div>
 	</div>
-	
+	<div class="m-tlist m-tlist-lged" id="subnav">
+		<ul class="f-cb">
+			<li>...</li>
+			<li>...</li>
+			<li>...</li>
+			<li>...</li>
+		</ul>
+	</div>
+
+	<div class="m-tlist m-tlist-lged" id="subnav" style="display:none">
+	...
+	</div>
+	<div class="m-tlist m-tlist-lged" id="subnav" style="display:block">
+		...
+	</div>
 	<html>
 		<head>
 			<meta charset="utf-8"/>
